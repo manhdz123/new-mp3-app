@@ -1,7 +1,9 @@
-import ADD_TASK from './ActionTypes';
-import TOGGLE_STATUS from './ActionTypes';
+export const TOGGLE_STATUS = 'TOGGLE_STATUS';
+export const TOGGLE_CONTROL = 'TOGGLE_CONTROL';
+export const ADD_NUMBER = 'ADD_NUMBER';
 
-export {
-    ADD_TASK,
-    TOGGLE_STATUS
+export default {
+    TOGGLE_STATUS,
+    TOGGLE_CONTROL,
+    ADD_NUMBER
 }
