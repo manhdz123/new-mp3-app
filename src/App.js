@@ -3,27 +3,37 @@ import './App.css';
 import Control from './components/Control';
 import {Search, Sort} from './components'
 import {connect} from 'react-redux';
-import {TOGGLE_STATUS, TOGGLE_CONTROL, ADD_NUMBER} from './actions';
+import {changeStatus, switchControl, addNumber} from './actions/ActionTypes';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        number: null
+        number: ''
     }
   }
 
+  onClear = () =>  {
+      this.setState({number: ''});
+  }
+
+  onAddNumber = (event) => {
+      event.preventDefault();
+      let newNumber = document.getElementById("number").value;
+      this.props.addNumber({number: newNumber});
+      document.getElementById("number").value = "";
+  }
 
   render() {
-    const {status, disabled, numberArray} = this.props;
-    console.log(numberArray);
+    console.log(this.props.numberArray);
+    const {disabled} = this.props;
      return (
       <div className="App">
             <div className="container-fluid">
             <h1>Hello</h1>
-            <input type="text" name="number" placeholder="input number..." onChange={(event) => this.setState({number: event.target.value})}/>
+            <input type="text" name="number" id="number" placeholder="input number..." />
             <br/>
-            <button type="button" onClick = {() => this.props.addNumber(this.state.number)}>Add Number!</button>
+            <input type="button" value='Add Number!' onClick = {(event) => this.onAddNumber(event)}/>
             <button onClick={this.props.changeStatus}>Event Handling</button>
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                 {disabled ? <div/> : 
@@ -51,13 +61,13 @@ const mapStateToProps = (state) => {
  const mapDispatchToProps = (dispatch) => {
   return {
     changeStatus: () => {
-      dispatch({type: TOGGLE_STATUS})
+      dispatch(changeStatus)
     },
     switchControl: () => {
-      dispatch({type: TOGGLE_CONTROL})
+      dispatch(switchControl)
     },
-    addNumber: (newNumber) => {
-      dispatch({type: ADD_NUMBER, action: newNumber})
+    addNumber: (number) => {
+      dispatch(addNumber(number))
     }
   }
 }
