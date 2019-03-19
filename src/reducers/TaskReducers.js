@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
             }
 
         case ADD_NUMBER:
-            console.log(action);
             return {
                 ...state,
                 number: [...state.number, action.number]
